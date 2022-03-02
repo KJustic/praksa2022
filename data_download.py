@@ -3,8 +3,9 @@ import datetime
 import calendar
 import os
 
+start= datetime.datetime.now()
 # TAS HA DOWNLOAD za rcp4.5 
-link = 'https://repozitorij.meteo.hr/data/refolder4-2017-lvl1/RES_12/folder_HA/EXP_rcp45/tas_CRO_HA_45_STS.'    
+link = 'https://repozitorij.meteo.hr/data/regcm4-2017-lvl1/RES_12/GCM_HA/EXP_rcp45/tas_CRO_HA_45_STS.'    
 x=datetime.date(2005,12,1)
 datum=datetime.date(2070,12,1)
 
@@ -23,5 +24,8 @@ while x<=datum:
                 
     	x+=delta
     	
+
+print (datetime.datetime.now()-start)
+
     	
 
