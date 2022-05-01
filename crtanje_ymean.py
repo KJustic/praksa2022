@@ -34,19 +34,21 @@ GRAD.append('Blato');
 gcm=['CN','EC','MP','HA']
 var=['tas','tasmax','tasmin']
 exp=['historical','45','85']
-
+shade =['light', 'dark']
+color = ['green','red','blue']
 for l in range (0,21):
 	plt.close('all')
-	fig, axs = plt.subplots(2, 2,figsize=(15, 15))
+	fig, axs = plt.subplots(2, 2,figsize=(15, 15),sharex=False, sharey=False)
 	fig.suptitle('{}'.format(GRAD[l]),fontsize=25)
 	for i in range(0,4):
 		for k in range(0,3):
 			for j in range(1,3):
+			
 				path = '/home/klara/Documents/praksa/podaci/{}/{}_{}_{}/{}/'.format(gcm[i],var[k],exp[j],exp[0],GRAD[l])
 				ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
 				out = path+GRAD[l]+'_'+ime+'.nc'
 				out2 = path+GRAD[l]+'_'+ime+ '_yearmean'+'.nc'
-				os.system("cdo yearmean {} {}".format(out,out2))
+				#os.system("cdo yearmean {} {}".format(out,out2))
 	
 				ds = nc.Dataset(out2)
 
@@ -59,20 +61,15 @@ for l in range (0,21):
 				datevar.append(nc.num2date(nctime,units = t_unit,calendar = t_cal,only_use_python_datetimes=True))
 				time= [y for y in range(datevar[0][0].year,datevar[0][-1].year +1)]
 				axs = axs.flatten()
-				axs[i].plot(time,data, label='{} {}'.format(var[k],exp[j]))
+				if k==1 and j==1:
+					axs[i].plot(time,data-273.15, label='{} {}'.format(var[k],exp[j]), color = '{}{}'.format(shade[j-1],'coral'))
+				else:
+					axs[i].plot(time,data-273.15, label='{} {}'.format(var[k],exp[j]), color = '{}{}'.format(shade[j-1],color[k]))
 		
+		axs[i].set(xlabel='time', ylabel='temperature [°C]')
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
+
 	
-
-		for ax in axs.flat:
-	    		ax.set(xlabel='time', ylabel='temperature [K]')
-
-
-		for ax in axs.flat:
-	    		ax.label_outer()
-
-
-	fig.subplots_adjust(wspace=0.01, hspace=0.1)
 	plt.savefig('{}_yearmean.png'.format(GRAD[l]))
 					
