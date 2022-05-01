@@ -38,7 +38,7 @@ shade =['light', 'dark']
 color = ['green','red','blue']
 for l in range (0,21):
 	plt.close('all')
-	fig, axs = plt.subplots(2, 2,figsize=(15, 15),sharex=False, sharey=False)
+	fig, axs = plt.subplots(2, 2,figsize=(15, 15), sharey=True)
 	fig.suptitle('{}'.format(GRAD[l]),fontsize=25)
 	for i in range(0,4):
 		for k in range(0,3):
@@ -65,11 +65,15 @@ for l in range (0,21):
 					axs[i].plot(time,data-273.15, label='{} {}'.format(var[k],exp[j]), color = '{}{}'.format(shade[j-1],'coral'))
 				else:
 					axs[i].plot(time,data-273.15, label='{} {}'.format(var[k],exp[j]), color = '{}{}'.format(shade[j-1],color[k]))
+		for ax in axs.flatten():
+    			ax.yaxis.set_tick_params(labelleft=True)
+		axs[i].set_xlabel('time')
+
+		axs[i].set_ylabel('temperature [°C]')
 		
-		axs[i].set(xlabel='time', ylabel='temperature [°C]')
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
 
-	
+
 	plt.savefig('{}_yearmean.png'.format(GRAD[l]))
 					
