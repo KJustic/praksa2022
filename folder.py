@@ -25,6 +25,10 @@ GRAD.append('Pazin');
 GRAD.append('Dubrovnik');
 GRAD.append('Čakovec');
 GRAD.append('Blato');
+GRAD.append('Knin');
+GRAD.append('Sinj');
+GRAD.append('Zavižan');
+
 
 gcm=['CN','EC','MP','HA']
 var=['tas','tasmax','tasmin']
@@ -49,7 +53,7 @@ for i in range(0,4):
 				ime='{}_CRO_{}_{}_STS.'.format(var[k],gcm[i],exp[j])
 				path='/home/klara/Documents/praksa/podaci/{}/{}_{}/'.format(gcm[i],var[k],exp[j])
 			
-				for l in range (0,21):
+				for l in range (0,24):
 					path2 = path+'{}/'.format(GRAD[l])
 					print(path2)
 					if not os.path.exists(path2):

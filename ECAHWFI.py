@@ -30,13 +30,16 @@ GRAD.append('Pazin');
 GRAD.append('Dubrovnik');
 GRAD.append('Čakovec');
 GRAD.append('Blato');
+GRAD.append('Knin');
+GRAD.append('Sinj');
+GRAD.append('Zavižan');
 
 gcm=['CN','EC','MP','HA']
 var=['tas']
 exp=['historical','45','85']
 shade =['lightcoral', 'darkred']
 
-for l in range (0,21):
+for l in range (0,24):
 	plt.close('all')
 	fig, axs = plt.subplots(2, 2,figsize=(15, 15), sharey=True)
 	fig.suptitle('{}'.format(GRAD[l]),fontsize=25)
@@ -98,13 +101,16 @@ for l in range (0,21):
 		for ax in axs.flatten():
 			ax.yaxis.set_tick_params(labelleft=True)
 		for ax in axs1.flatten():
-    			ax.yaxis.set_tick_params(labelleft=True)
+			ax.yaxis.set_tick_params(labelleft=True)
+			
+		axs[i].set_ylim([-5, 90])
+		axs1[i].set_ylim([0, 8])
     			
-		axs[i].set_xlabel('time')
-		axs1[i].set_xlabel('time')
+		axs[i].set_xlabel('time',fontsize=15)
+		axs1[i].set_xlabel('time',fontsize=15)
 
-		axs[i].set_ylabel('warm spell days index')
-		axs1[i].set_ylabel('warm spell periods')
+		axs[i].set_ylabel('warm spell days index',fontsize=15)
+		axs1[i].set_ylabel('warm spell periods',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
 		axs1[i].set_title('{}'.format(gcm[i]),fontsize=20)

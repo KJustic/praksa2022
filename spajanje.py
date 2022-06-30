@@ -25,6 +25,9 @@ GRAD.append('Pazin');
 GRAD.append('Dubrovnik');
 GRAD.append('Čakovec');
 GRAD.append('Blato');
+GRAD.append('Knin');
+GRAD.append('Sinj');
+GRAD.append('Zavižan');
 
 gcm=['CN','EC','MP','HA']
 var=['tas','tasmax','tasmin']
@@ -32,7 +35,7 @@ exp=['historical','45','85']
 for i in range(0,4):
 	for j in range(0,3):
 		for k in range(0,3):
-			for l in range (0,21):
+			for l in range (0,24):		
 				path2 = '/home/klara/Documents/praksa/podaci/{}/{}_{}/{}/'.format(gcm[i],var[k],exp[j],GRAD[l])
 				path3 = '/home/klara/Documents/praksa/podaci/{}/{}_{}/{}/'.format(gcm[i],var[k],exp[0],GRAD[l])
 				ime= '{}_CRO_{}_{}_STS'.format(var[k],gcm[i],exp[j])
@@ -51,6 +54,10 @@ for i in range(0,4):
 					os.system("cdo copy {} {} {}".format(out2,out, out3))
 					print(out2,out, out3)
 	'''	
+		
+			
+
+			
 			if exp[j] == 'historical':
 				x=datetime.date(1970,1,1)
 				datum=datetime.date(2005,11,1)
@@ -68,16 +75,13 @@ for i in range(0,4):
 				ime='{}_CRO_{}_{}_STS.'.format(var[k],gcm[i],exp[j])
 				path='/home/klara/Documents/praksa/podaci/{}/{}_{}/'.format(gcm[i],var[k],exp[j])
 			
-				for l in range (0,21):
+				for l in range (0,24):
 					path2 = path+'{}/'.format(GRAD[l])
 					os.system("cdo shifttime,-1hours {} {}".format(path2+GRAD[l]+'_'+ime+dat+'00.nc', path2+GRAD[l]+'_'+ime+dat+'00.nc'))
 					print(path2+GRAD[l]+'_'+ime+dat+'00.nc', path2+GRAD[l]+'_'+ime+dat+'00.nc')
 					
 				x+=delta
+			'''
 				
-
-			
-		'''
-			
 
 			

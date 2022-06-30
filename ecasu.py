@@ -30,13 +30,16 @@ GRAD.append('Pazin');
 GRAD.append('Dubrovnik');
 GRAD.append('Čakovec');
 GRAD.append('Blato');
+GRAD.append('Knin');
+GRAD.append('Sinj');
+GRAD.append('Zavižan');
 
 gcm=['CN','EC','MP','HA']
 var=['tasmax']
 exp=['historical','45','85']
 shade =['lightcoral', 'darkred']
 
-for l in range (0,21):
+for l in range (0,24):
 	plt.close('all')
 	fig, axs = plt.subplots(2, 2,figsize=(15, 15), sharey=True)
 	fig.suptitle('{}'.format(GRAD[l]),fontsize=25)
@@ -59,6 +62,8 @@ for l in range (0,21):
 					os.system("cdo eca_su {} {}".format(out2,out3))
 				out4= path2 +'eca_su_'
 				out5= path + GRAD[l]+'_'+ime+ '_eca_su'+'.nc'
+				if os.path.exists(out5):
+					os.system("rm -r {}".format(out5))
 				os.system("cdo mergetime {}*.nc {}".format(out4,out5))
 				os.system("rm -r {}".format(path2))
 				ds = nc.Dataset(out5)
@@ -73,15 +78,19 @@ for l in range (0,21):
 				time= [y for y in range(datevar[0][0].year,datevar[0][-1].year +1)]
 				axs = axs.flatten()
 				axs[i].plot(time,data, label='{} {}'.format(var[k],exp[j]), color = '{}'.format(shade[j-1]))
+		
 		for ax in axs.flatten():
-    			ax.yaxis.set_tick_params(labelleft=True)
-		axs[i].set_xlabel('time')
+			ax.yaxis.set_tick_params(labelleft=True)
+			
+		axs[i].set_ylim([0, 175])
+		axs[i].set_xlabel('time',fontsize=15)
 
-		axs[i].set_ylabel('number of days')
+		axs[i].set_ylabel('number of days',fontsize=15)
 		
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
-
-
-	plt.savefig('{}_ecasu.png'.format(GRAD[l]))
+	path3 = '/home/klara/Documents/praksa/ecasu/'
+	if not os.path.exists(path3):
+		os.makedirs(path3)
+	plt.savefig('{}{}_ecasu.png'.format(path3,GRAD[l]))
 					
