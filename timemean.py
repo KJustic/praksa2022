@@ -62,6 +62,7 @@ for l in range (0,24):
 					fig, ( (ax0, ax1),(ax2,ax3) ) = plt.subplots(2, 2,figsize=(20, 20))
 					axs =[ax0,ax1,ax2,ax3]
 					fig.suptitle('{} {} {}'.format(GRAD[l],imena[n][k].replace('_', ' '), exp[j]),fontsize=25)
+					limit=[]
 					for i in range(0,4): 
 						path = '/home/klara/Documents/praksa/podaci/{}/{}_{}_{}/{}/'.format(gcm[i],var[k],exp[j],exp[0],GRAD[l])
 						ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
@@ -83,14 +84,14 @@ for l in range (0,24):
 						datevar = []
 						datevar.append(nc.num2date(nctime,units = t_unit,calendar = t_cal,only_use_python_datetimes=True))
 						time= [y for y in range(datevar[0][0].year,datevar[0][-1].year +1)]
-						
+						limit.append(data)
 						axs[i].plot(time,data, label='{}'.format(imena[n][k].replace('_', ' ')), color = 'red')
 						axs[i].axhline(tmean, label='{} mean 1970-2000'.format(imena[n][k].replace('_', ' ')), color = 'black')
-		
+					for i in range(0,4): 
 						for ax in axs:
 							ax.yaxis.set_tick_params(labelleft=True)
 							
-						#axs[i].set_ylim([0, 175])
+						axs[i].set_ylim(np.array(limit).min() , np.array(limit).max())
 						axs[i].set_xlabel('time',fontsize=15)
 
 						axs[i].set_ylabel('{}'.format(imena[n][k].replace('_', ' ')),fontsize=15)
