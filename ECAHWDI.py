@@ -59,10 +59,10 @@ for l in range (0,24):
 					os.makedirs(path3)
 				ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
 				out = path+GRAD[l]+'_'+ime+'.nc'
-				out2= path2 + '1970_2000' +'.nc'
+				out2= path2 + '1971_2000' +'.nc'
 				out3= path2 + 'ydrunmean' +'.nc'
 				ifile2= path + 'JJA_runmean' +'.nc'
-				os.system("cdo selyear,1970/2000 {} {}".format(out,out2))
+				os.system("cdo selyear,1971/2000 {} {}".format(out,out2))
 				os.system("cdo ydrunmean,5 {} {}".format(out2,out3))
 				os.system("cdo selseas,JJA {} {}".format(out3,ifile2))
 				os.system("rm -r {}".format(path2))
@@ -102,11 +102,11 @@ for l in range (0,24):
     		
 		axs[i].set_ylim([-5, 90])
 		axs1[i].set_ylim([0, 7])	
-		axs[i].set_xlabel('time',fontsize=15)
-		axs1[i].set_xlabel('time',fontsize=15)
+		axs[i].set_xlabel('Time [years]',fontsize=15)
+		axs1[i].set_xlabel('Time [years]',fontsize=15)
 
-		axs[i].set_ylabel('heat wave duration index',fontsize=15)
-		axs1[i].set_ylabel('heat waves',fontsize=15)
+		axs[i].set_ylabel('Heat wave duration index wrt mean of reference period [days]',fontsize=15)
+		axs1[i].set_ylabel('Heat waves per time period',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
 		axs1[i].set_title('{}'.format(gcm[i]),fontsize=20)

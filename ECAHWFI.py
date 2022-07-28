@@ -59,10 +59,10 @@ for l in range (0,24):
 					os.makedirs(path3)
 				ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
 				out = path+GRAD[l]+'_'+ime+'.nc'
-				out2= path2 + '1970_2000' +'.nc'
+				out2= path2 + '1971_2000' +'.nc'
 				out3= path2 + 'ydrunpctl' +'.nc'
 				ifile2= path + 'JJA_runpctl' +'.nc'
-				os.system("cdo selyear,1970/2000 {} {}".format(out,out2))
+				os.system("cdo selyear,1971/2000 {} {}".format(out,out2))
 				os.system("cdo ydrunpctl,90,5 {} -ydrunmin,5 {} -ydrunmax,5 {} {}".format(out2,out2,out2, out3))
 				os.system("cdo selseas,JJA {} {}".format(out3,ifile2))
 				os.system("rm -r {}".format(path2))
@@ -106,11 +106,11 @@ for l in range (0,24):
 		axs[i].set_ylim([-5, 90])
 		axs1[i].set_ylim([0, 8])
     			
-		axs[i].set_xlabel('time',fontsize=15)
-		axs1[i].set_xlabel('time',fontsize=15)
+		axs[i].set_xlabel('Time [years]',fontsize=15)
+		axs1[i].set_xlabel('Time [years]',fontsize=15)
 
-		axs[i].set_ylabel('warm spell days index',fontsize=15)
-		axs1[i].set_ylabel('warm spell periods',fontsize=15)
+		axs[i].set_ylabel('Warm spell days index wrt 90th percentile of reference period [days]',fontsize=15)
+		axs1[i].set_ylabel('Warm spell periods per time period ',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
 		axs1[i].set_title('{}'.format(gcm[i]),fontsize=20)

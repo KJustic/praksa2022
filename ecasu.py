@@ -83,9 +83,9 @@ for l in range (0,24):
 			ax.yaxis.set_tick_params(labelleft=True)
 			
 		axs[i].set_ylim([0, 175])
-		axs[i].set_xlabel('time',fontsize=15)
+		axs[i].set_xlabel('Time [years]',fontsize=15)
 
-		axs[i].set_ylabel('number of days',fontsize=15)
+		axs[i].set_ylabel('Summer days index per time period [days]',fontsize=15)
 		
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()

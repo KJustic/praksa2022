@@ -49,25 +49,19 @@ imena = [['tas','tasmax','tasmin'],['summer_days_index_per_time_period',0,0],['c
 
 
 for n in range(0,len(indeks)):
-	for j in range(1,3):
-		for k in range(0,len(imena[n])):
-			if n==0:
-				var=['tas','tasmax','tasmin']
-			elif n in range(1,4):
-				var=['tasmax','tasmax','tasmax']
-			else:
-				var=['tas','tas','tas']
-			if imena[n][k] !=0:
-			
-				plt.close('all')
-				fig, ( (ax0, ax1),(ax2,ax3) ) = plt.subplots(2, 2,figsize=(20, 15))
-				axs =[ax0,ax1,ax2,ax3]
-				fig.suptitle('{} {}'.format(imena[n][k].replace('_', ' '), exp[j]),fontsize=25)
-				worldmap = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-				rezultat = np.zeros((4,24)) 
+	for k in range(0,len(imena[n])):
+		if n==0:
+			var=['tas','tasmax','tasmin']
+		elif n in range(1,4):
+			var=['tasmax','tasmax','tasmax']
+		else:
+			var=['tas','tas','tas']
+		if imena[n][k] !=0:
+			rezultat = np.zeros((2,4,24))
+			for j in range(1,3):
+				
 				for i in range(0,4): 
-					for l in range (0,24):
-								
+					for l in range (0,24):		
 						path = '/home/klara/Documents/praksa/podaci/{}/{}_{}_{}/{}/'.format(gcm[i],var[k],exp[j],exp[0],GRAD[l])
 						ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
 						
@@ -83,10 +77,17 @@ for n in range(0,len(indeks)):
 							datevar.append(nc.num2date(nctime,units = t_unit,calendar = t_cal,only_use_python_datetimes=True))
 							time= [y for y in range(datevar[0][0].year,datevar[0][-1].year +1)]
 							slope, intercept, r, p, se = stats.linregress(time, data)
-							rezultat[i][l]=slope*10
+							rezultat[j-1][i][l]=slope*10
+			for j in range(1,3):
+				plt.close('all')
+				fig, ( (ax0, ax1),(ax2,ax3) ) = plt.subplots(2, 2,figsize=(20, 15))
+				axs =[ax0,ax1,ax2,ax3]
+				fig.suptitle('{} {}'.format(imena[n][k].replace('_', ' '), exp[j]),fontsize=25)
+				worldmap = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+				 
 				for i in range(0,4):
 					if rezultat.any() != 0: 	
-						output = '\n'.join('\t'.join(map(str,row)) for row in zip(GRAD,rezultat[i]))
+						output = '\n'.join('\t'.join(map(str,row)) for row in zip(GRAD,rezultat[j-1][i]))
 
 						path1 = '/home/klara/Documents/praksa/podaci/{}/'.format(gcm[i])
 						ime1 = '{}_CRO_{}_{}_{}_STS'.format(imena[n][k],gcm[i],exp[0],exp[j])
@@ -99,10 +100,10 @@ for n in range(0,len(indeks)):
 						worldmap.plot(color="white",edgecolor='gray', ax=axs[i])
 						x = LON
 						y = LAT
-						z = rezultat[i]
-						graf=axs[i].scatter(x, y,s=70, c=z, alpha=0.6,cmap='autumn')
-						cb=plt.colorbar(graf,fraction=0.03, ax=axs[i])
-						cb.set_label(label='{} \n rate of increase per 10 years '.format(imena[n][k].replace('_', ' ') ), size=15)
+						z = rezultat[j-1][i]
+						graf=axs[i].scatter(x, y,s=70, c=z, alpha=0.6,cmap='autumn_r')
+						cb=plt.colorbar(graf,fraction=0.03, ax=axs[i],format = "%0.1f")
+						cb.set_label(label='{} \n rate of increase per 10 years '.format(imena[n][k].replace('_', ' ').capitalize() ), size=15)
 						cb.ax.tick_params(labelsize='large')
 						cb.mappable.set_clim(rezultat.min() , rezultat.max() ) 
 						for m, label in enumerate(GRAD):
@@ -119,14 +120,14 @@ for n in range(0,len(indeks)):
 						os.makedirs(path2)
 
 					plt.savefig('{}{}_{}_slope.png'.format(path2,imena[n][k], exp[j]))
-						
-						
 					
 					
-					
-					
-					
-					
+				
+				
+				
+				
+				
+				
 					
 				
 				

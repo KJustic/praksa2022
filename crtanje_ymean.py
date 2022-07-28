@@ -73,10 +73,10 @@ for l in range (0,24):
 			ax.yaxis.set_tick_params(labelleft=True)
 		
 		axs[i].set_ylim([0, 25])
-		axs[i].set_xlabel('time',fontsize=15)
+		axs[i].set_xlabel('Time [years]',fontsize=15)
 		axs[i].tick_params(axis='x', labelsize= 10)
 		axs[i].tick_params(axis='y', labelsize= 10)
-		axs[i].set_ylabel('temperature [°C]',fontsize=15)
+		axs[i].set_ylabel('Temperature [°C]',fontsize=15)
 		
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
