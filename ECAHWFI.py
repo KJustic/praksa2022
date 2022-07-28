@@ -109,7 +109,7 @@ for l in range (0,24):
 		axs[i].set_xlabel('Time [years]',fontsize=15)
 		axs1[i].set_xlabel('Time [years]',fontsize=15)
 
-		axs[i].set_ylabel('Warm spell days index wrt 90th percentile of reference period [days]',fontsize=15)
+		axs[i].set_ylabel('Warm spell days index wrt 90th percentile \n of reference period [days]',fontsize=15)
 		axs1[i].set_ylabel('Warm spell periods per time period ',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()

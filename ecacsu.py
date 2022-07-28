@@ -95,7 +95,7 @@ for l in range (0,24):
 		axs1[i].set_xlabel('Time [years]',fontsize=15)
 
 		axs[i].set_ylabel('Consecutive summer days index per time period [days]',fontsize=15)
-		axs1[i].set_ylabel('Number of csu periods with more than 5 days per time period',fontsize=15)
+		axs1[i].set_ylabel('Number of csu periods with more than 5 days \n per time period',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
 		axs1[i].set_title('{}'.format(gcm[i]),fontsize=20)
