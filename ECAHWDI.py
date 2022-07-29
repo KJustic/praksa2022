@@ -105,7 +105,7 @@ for l in range (0,24):
 		axs[i].set_xlabel('Time [years]',fontsize=15)
 		axs1[i].set_xlabel('Time [years]',fontsize=15)
 
-		axs[i].set_ylabel('Heat wave duration index wrt mean of reference period [days]',fontsize=15)
+		axs[i].set_ylabel('Heat wave duration index wrt \n mean of reference period [days]',fontsize=15)
 		axs1[i].set_ylabel('Heat waves per time period',fontsize=15)
 		axs[i].set_title('{}'.format(gcm[i]),fontsize=20)
 		axs[i].legend()
