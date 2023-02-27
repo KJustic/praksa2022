@@ -57,20 +57,20 @@ c.retrieve(
     'projections-cordex-domains-single-levels',
     {
         'domain': 'europe',
-        'experiment': 'historical',
+        'experiment': 'rcp_8_5',
         'horizontal_resolution': '0_11_degree_x_0_11_degree',
         'temporal_resolution': 'daily_mean',
         'variable': [
             '2m_air_temperature', 'maximum_2m_temperature_in_the_last_24_hours', 'minimum_2m_temperature_in_the_last_24_hours',
         ],
-        'gcm_model': 'ichec_ec_earth',
+        'gcm_model': 'mpi_m_mpi_esm_lr',
         'rcm_model': 'clmcom_clm_cclm4_8_17',
-        'ensemble_member': 'r12i1p1',
+        'ensemble_member': 'r1i1p1',
         'start_year': [
-            '1971', '1976',
+            '2056', '2061',
         ],
         'end_year': [
-            '1975', '1980',
+            '2060', '2065',
         ],
         'format': 'zip',
     },

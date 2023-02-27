@@ -40,9 +40,9 @@ LON[22]=16.64; LAT[22]=43.70; GRAD.append('Sinj');
 LON[23]=14.98; LAT[23]=44.81; GRAD.append('Zavižan');
 
 
-gcm=['EC','MP','HA']
+gcm=['ICHEC-EC-EARTH','MOHC-HadGEM2-ES','MPI-M-MPI-ESM-LR']
 
-exp=['historical','45','85']
+exp=['historical','rcp45','rcp85']
 
 indeks=['_yearmean','_eca_su','_eca_csu','_eca_hwdi','_eca_hwfi']
 imena = [['tas','tasmax','tasmin'],['summer_days_index_per_time_period',0,0],['consecutive_summer_days_index_per_time_period',0,0],['heat_wave_duration_index_wrt_mean_of_reference_period',0,0],['warm_spell_days_index_wrt_90th_percentile_of_reference_period',0,0]]
@@ -57,14 +57,17 @@ for n in range(0,len(indeks)):
 		else:
 			var=['tas','tas','tas']
 		if imena[n][k] !=0:
-			rezultat = np.zeros((2,3,24))
+			rezultat = np.zeros((2,4,24))
 			for j in range(1,3):
 				
 				for i in range(0,3): 
 					for l in range (0,24):		
-						path = '/home/klara/Documents/praksa/podaci/{}/{}_{}_{}/{}/'.format(gcm[i],var[k],exp[j],exp[0],GRAD[l])
-						ime = '{}_CRO_{}_{}_{}_STS'.format(var[k],gcm[i],exp[0],exp[j])
-						
+						path = '/home/klara/Documents/praksa/podaci_CLM/{}/{}_{}_{}/{}/'.format(gcm[i],var[k],exp[j],exp[0],GRAD[l])
+						if i == 0:
+							ime = '{}_EUR-11_{}_{}_{}_r12i1p1_CLMcom-CCLM4-8-17_v1_day'.format(var[k],gcm[i],exp[j],exp[0])
+						else:
+							ime = '{}_EUR-11_{}_{}_{}_r1i1p1_CLMcom-CCLM4-8-17_v1_day'.format(var[k],gcm[i],exp[j],exp[0])
+								
 						out= path+GRAD[l]+'_'+ime+indeks[n]+'.nc'
 						if os.path.exists(out):
 							ds = nc.Dataset(out)
@@ -82,15 +85,18 @@ for n in range(0,len(indeks)):
 				plt.close('all')
 				fig, axs = plt.subplots(3, 1,figsize=(15, 30))
 
-				fig.suptitle('{} {} - RegCM4'.format(imena[n][k].replace('_', ' '), exp[j]),fontsize=25)
+				fig.suptitle('{} {} - CLM'.format(imena[n][k].replace('_', ' '), exp[j]),fontsize=25)
 				worldmap = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
 				 
 				for i in range(0,3):
 					if rezultat.any() != 0: 	
 						output = '\n'.join('\t'.join(map(str,row)) for row in zip(GRAD,rezultat[j-1][i]))
 
-						path1 = '/home/klara/Documents/praksa/podaci/{}/'.format(gcm[i])
-						ime1 = '{}_CRO_{}_{}_{}_STS'.format(imena[n][k],gcm[i],exp[0],exp[j])
+						path1 = '/home/klara/Documents/praksa/podaci_CLM/{}/'.format(gcm[i])
+						if i == 0:
+							ime1 = '{}_EUR-11_{}_{}_{}_r12i1p1_CLMcom-CCLM4-8-17_v1_day'.format(var[k],gcm[i],exp[j],exp[0])
+						else:
+							ime1 = '{}_EUR-11_{}_{}_{}_r1i1p1_CLMcom-CCLM4-8-17_v1_day'.format(var[k],gcm[i],exp[j],exp[0])
 							
 						out1= path1+ime1+'_linreg_slope.txt'
 						with open(out1, 'w') as f:
@@ -115,11 +121,11 @@ for n in range(0,len(indeks)):
 						axs[i].set_ylabel("Latitude",fontsize=15)
 						axs[i].set_title("{}".format(gcm[i]),fontsize=20)
 
-					path2 = '/home/klara/Documents/praksa/linreg/'
+					path2 = '/home/klara/Documents/praksa/linreg_CLM/'
 					if not os.path.exists(path2):
 						os.makedirs(path2)
 
-					plt.savefig('{}{}_{}_slope.png'.format(path2,imena[n][k], exp[j]))
+					plt.savefig('{}{}_{}_slope_CLM.png'.format(path2,imena[n][k], exp[j]))
 					
 					
 				
